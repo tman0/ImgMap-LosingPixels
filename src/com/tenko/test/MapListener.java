@@ -34,7 +34,8 @@ public class MapListener implements Listener {
 	
 	@EventHandler
 	public void mapInit(org.bukkit.event.player.PlayerItemHeldEvent e){
-		e.get
+        /*
+        e.getPlayer().getItemInHand()
 		for(String line : data){
 			if(line.startsWith(e.getMap().getId() + ":")){
 				for(MapRenderer mr : e.getMap().getRenderers()){
@@ -43,6 +44,7 @@ public class MapListener implements Listener {
 				break;
 			}
 		}
+		*/
 	}
 	
 }
