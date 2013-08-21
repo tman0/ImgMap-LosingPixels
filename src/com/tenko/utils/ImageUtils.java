@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 
 import com.tenko.ImgMap;
+import sun.net.www.protocol.file.FileURLConnection;
 
 public class ImageUtils {
 	
@@ -28,11 +30,21 @@ public class ImageUtils {
 	public static boolean isImageCompatible(String url){
 		try {
 			URL theURL = new URL(url);
-			HttpURLConnection con = (HttpURLConnection)theURL.openConnection();
-			con.setRequestMethod("HEAD");
-			con.connect();
-			String toReturn = con.getContentType();
-			con.disconnect();
+			URLConnection con = theURL.openConnection();
+            String toReturn = "false";
+            if(con instanceof HttpURLConnection){
+                HttpURLConnection http = (HttpURLConnection)con;
+                http.setRequestMethod("HEAD");
+                http.connect();
+                toReturn = http.getContentType();
+                http.disconnect();
+            }
+            else if(con instanceof FileURLConnection){
+                FileURLConnection file = (FileURLConnection)con;
+                file.connect();
+                toReturn = file.getContentType();
+                file.close();
+            }
 
 			return toReturn.startsWith("image");
 		} catch (IOException e) {
