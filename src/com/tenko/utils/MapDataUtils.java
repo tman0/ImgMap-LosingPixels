@@ -58,12 +58,12 @@ public class MapDataUtils {
 			boolean isAlreadyAdded = false;
 			
 			for(String s : contents){
-				bw.write((isAlreadyAdded = s.startsWith(src+":")) ? src + ":" + dest : s);
+				bw.append((isAlreadyAdded = s.startsWith(src+":")) ? src + ":" + dest : s);
 				bw.newLine();
 			}
 			
 			if(!isAlreadyAdded){
-				bw.write(src + ":" + dest);
+				bw.append(src + ":" + dest);
 			}
 			
 			bw.flush();
@@ -82,7 +82,7 @@ public class MapDataUtils {
 			BufferedWriter bw = Files.newWriter(f, Charset.defaultCharset());
 			
 			for(String l : dest){
-				bw.write(l);
+				bw.append(l);
 				bw.newLine();
 			}
 
@@ -104,7 +104,7 @@ public class MapDataUtils {
 			
 			for(String l : contents){
 				if(!l.startsWith(String.valueOf(target)+":")){
-					bw.write(l);
+					bw.append(l);
 					bw.newLine();
 				}
 			}
